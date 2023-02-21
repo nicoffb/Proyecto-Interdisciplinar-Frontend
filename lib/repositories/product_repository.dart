@@ -15,7 +15,7 @@ class ProductRepository {
     final response = await httpClient.get(
       Uri.https(
         _baseUrl,
-        '/posts',
+        '/product/search',
         <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'},
       ),
     );
