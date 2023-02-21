@@ -1,26 +1,27 @@
 import 'package:equatable/equatable.dart';
 
-class Post {
-  List<Content>? content;
+class Page {
+  List<Product>? product;
   bool? last;
   bool? first;
   int? totalPages;
   int? totalElements;
   int? currentPage;
 
-  Post(
-      {this.content,
+  Page(
+      {this.product,
       this.last,
       this.first,
       this.totalPages,
       this.totalElements,
       this.currentPage});
 
-  Post.fromJson(Map<String, dynamic> json) {
-    if (json['content'] != null) {
-      content = <Content>[];
-      json['content'].forEach((v) {
-        content!.add(new Content.fromJson(v));
+  Page.fromJson(Map<String, dynamic> json) {
+    if (json['product'] != null) {
+      product = <Product>[];
+      json['product'].forEach((v) {
+        //aqui va content???
+        product!.add(new Product.fromJson(v));
       });
     }
     last = json['last'];
@@ -32,8 +33,8 @@ class Post {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.content != null) {
-      data['content'] = this.content!.map((v) => v.toJson()).toList();
+    if (this.product != null) {
+      data['product'] = this.product!.map((v) => v.toJson()).toList();
     }
     data['last'] = this.last;
     data['first'] = this.first;
@@ -44,15 +45,15 @@ class Post {
   }
 }
 
-class Content {
+class Product {
   int? id;
   String? title;
   String? description;
   double? price;
 
-  Content({this.id, this.title, this.description, this.price});
+  Product({this.id, this.title, this.description, this.price});
 
-  Content.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];

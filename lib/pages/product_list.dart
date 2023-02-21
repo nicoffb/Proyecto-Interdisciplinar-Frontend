@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_authentication/blocs/productList/post_bloc.dart';
+import 'package:flutter_bloc_authentication/blocs/productList/product_bloc.dart';
 import 'package:flutter_bloc_authentication/widgets/bottom_loader.dart';
-import 'package:flutter_bloc_authentication/widgets/post_list_item.dart';
+import 'package:flutter_bloc_authentication/widgets/product_list_item.dart';
 
-class PostsList extends StatefulWidget {
-  const PostsList({super.key});
+class ProductsList extends StatefulWidget {
+  const ProductsList({super.key});
 
   @override
-  State<PostsList> createState() => _PostsListState();
+  State<ProductsList> createState() => _ProductsListState();
 }
 
-class _PostsListState extends State<PostsList> {
+class _ProductsListState extends State<ProductsList> {
   final _scrollController = ScrollController();
 
   @override
@@ -22,27 +22,27 @@ class _PostsListState extends State<PostsList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostBloc, PostState>(
+    return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         switch (state.status) {
-          case PostStatus.failure:
-            return const Center(child: Text('failed to fetch posts'));
-          case PostStatus.success:
-            if (state.posts.isEmpty) {
-              return const Center(child: Text('no posts'));
+          case ProductStatus.failure:
+            return const Center(child: Text('failed to fetch products'));
+          case ProductStatus.success:
+            if (state.products.isEmpty) {
+              return const Center(child: Text('no products'));
             }
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return index >= state.posts.length
+                return index >= state.products.length
                     ? const BottomLoader()
-                    : PostListItem(post: state.posts[index]);
+                    : ProductListItem(product: state.products[index]);
               },
               itemCount: state.hasReachedMax
-                  ? state.posts.length
-                  : state.posts.length + 1,
+                  ? state.products.length
+                  : state.products.length + 1,
               controller: _scrollController,
             );
-          case PostStatus.initial:
+          case ProductStatus.initial:
             return const Center(child: CircularProgressIndicator());
         }
       },
@@ -58,7 +58,7 @@ class _PostsListState extends State<PostsList> {
   }
 
   void _onScroll() {
-    if (_isBottom) context.read<PostBloc>().add(PostFetched());
+    if (_isBottom) context.read<ProductBloc>().add(ProductFetched());
   }
 
   bool get _isBottom {

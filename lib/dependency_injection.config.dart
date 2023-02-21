@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter_bloc_authentication/repositories/post_repository.dart'
+import 'package:flutter_bloc_authentication/repositories/product_repository.dart'
     as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
@@ -23,7 +23,7 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i3.PostRepository>(_i3.PostRepository());
+    gh.singleton<_i3.ProductRepository>(_i3.ProductRepository());
     return this;
   }
 }
