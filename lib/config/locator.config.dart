@@ -7,6 +7,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter_bloc_authentication/repositories/AuthenticationRepository.dart'
     as _i4;
+import 'package:flutter_bloc_authentication/repositories/product_repository.dart'
+    as _i6;
 import 'package:flutter_bloc_authentication/rest/rest_client.dart' as _i3;
 import 'package:flutter_bloc_authentication/services/authentication_service.dart'
     as _i5;
@@ -29,6 +31,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i3.RestClient>(_i3.RestClient());
     gh.singleton<_i4.AuthenticationRepository>(_i4.AuthenticationRepository());
     gh.singleton<_i5.JwtAuthenticationService>(_i5.JwtAuthenticationService());
+    gh.singleton<_i6.ProductRepository>(_i6.ProductRepository());
     return this;
   }
 }
