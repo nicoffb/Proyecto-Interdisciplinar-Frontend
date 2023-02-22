@@ -24,9 +24,7 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Welcome, ${user.fullName}',
-                style: TextStyle(
-                  fontSize: 24
-                ),
+                style: TextStyle(fontSize: 24),
               ),
               const SizedBox(
                 height: 12,
@@ -37,17 +35,18 @@ class HomePage extends StatelessWidget {
                   primary: Theme.of(context).primaryColor,
                 ),*/
                 child: Text('Logout'),
-                onPressed: (){
+                onPressed: () {
                   authBloc.add(UserLoggedOut());
                 },
               ),
-              ElevatedButton(onPressed: () async {
-                print("Check");
-                JwtAuthenticationService service = getIt<JwtAuthenticationService>();
-                await service.getCurrentUser();
-              }
-              , child: Text('Check')
-              )
+              ElevatedButton(
+                  onPressed: () async {
+                    print("Check");
+                    JwtAuthenticationService service =
+                        getIt<JwtAuthenticationService>();
+                    await service.getCurrentUser();
+                  },
+                  child: Text('Check'))
             ],
           ),
         ),

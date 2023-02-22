@@ -30,7 +30,6 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i3.RestAuthenticatedClient>(_i3.RestAuthenticatedClient());
     gh.singleton<_i3.RestClient>(_i3.RestClient());
     gh.singleton<_i4.AuthenticationRepository>(_i4.AuthenticationRepository());
     gh.singleton<_i5.UserRepository>(_i5.UserRepository());

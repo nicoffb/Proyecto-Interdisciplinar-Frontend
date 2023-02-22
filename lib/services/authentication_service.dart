@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 //import 'dart:developer';
 
@@ -44,7 +43,6 @@ class FakeAuthenticationService extends AuthenticationService {
 //@Singleton(as: AuthenticationService)
 @singleton
 class JwtAuthenticationService extends AuthenticationService {
-
   late AuthenticationRepository _authenticationRepository;
   late LocalStorageService _localStorageService;
   late UserRepository _userRepository;
@@ -52,9 +50,10 @@ class JwtAuthenticationService extends AuthenticationService {
   JwtAuthenticationService() {
     _authenticationRepository = getIt<AuthenticationRepository>();
     _userRepository = getIt<UserRepository>();
-    GetIt.I.getAsync<LocalStorageService>().then((value) => _localStorageService = value);
+    GetIt.I
+        .getAsync<LocalStorageService>()
+        .then((value) => _localStorageService = value);
   }
-
 
   @override
   Future<User?> getCurrentUser() async {
@@ -70,7 +69,8 @@ class JwtAuthenticationService extends AuthenticationService {
 
   @override
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    LoginResponse response = await _authenticationRepository.doLogin(email, password);
+    LoginResponse response =
+        await _authenticationRepository.doLogin(email, password);
     //await _localStorageService.saveToDisk('user', jsonEncode(response.toJson()));
     await _localStorageService.saveToDisk('user_token', response.token);
     return User.fromLoginResponse(response);
@@ -81,5 +81,4 @@ class JwtAuthenticationService extends AuthenticationService {
     print("borrando token");
     await _localStorageService.deleteFromDisk("user_token");
   }
-
 }

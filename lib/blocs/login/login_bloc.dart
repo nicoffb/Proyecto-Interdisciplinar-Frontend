@@ -10,15 +10,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc _authenticationBloc;
   final AuthenticationService _authenticationService;
 
-  LoginBloc(AuthenticationBloc authenticationBloc, AuthenticationService authenticationService)
+  LoginBloc(AuthenticationBloc authenticationBloc,
+      AuthenticationService authenticationService)
       : assert(authenticationBloc != null),
         assert(authenticationService != null),
         _authenticationBloc = authenticationBloc,
         _authenticationService = authenticationService,
         super(LoginInitial()) {
-          on<LoginInWithEmailButtonPressed>(__onLogingInWithEmailButtonPressed);
-        }
-
+    on<LoginInWithEmailButtonPressed>(__onLogingInWithEmailButtonPressed);
+  }
 
   __onLogingInWithEmailButtonPressed(
     LoginInWithEmailButtonPressed event,
@@ -26,7 +26,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
     try {
-      final user = await _authenticationService.signInWithEmailAndPassword(event.email, event.password);
+      final user = await _authenticationService.signInWithEmailAndPassword(
+          event.email, event.password);
       if (user != null) {
         _authenticationBloc.add(UserLoggedIn(user: user));
         emit(LoginSuccess());
@@ -34,12 +35,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         emit(LoginFailure(error: 'Something very weird just happened'));
       }
-    } on AuthenticationException catch (e) {
-      emit(LoginFailure(error: e.message));
-    } on CustomException catch (err) {
-      emit(LoginFailure(error:'An unknown error occurred ${err.message}'));
+    } on Exception catch (err) {
+      emit(LoginFailure(error: 'An unknown error occurred'));
     }
   }
-
-  
 }

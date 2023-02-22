@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter_bloc_authentication/config/locator.dart';
@@ -12,11 +10,10 @@ import 'package:flutter_bloc_authentication/rest/rest.dart';
 @Order(-1)
 @singleton
 class UserRepository {
-
-  late RestAuthenticatedClient _client;
+  late RestClient _client;
 
   UserRepository() {
-    _client = getIt<RestAuthenticatedClient>();
+    _client = getIt<RestClient>();
   }
 
   Future<dynamic> me() async {
@@ -24,11 +21,5 @@ class UserRepository {
 
     var jsonResponse = await _client.get(url);
     return UserResponse.fromJson(jsonDecode(jsonResponse));
-
   }
-
-
-
-
-
 }
