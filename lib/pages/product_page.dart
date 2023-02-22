@@ -15,7 +15,7 @@ class ProductsPage extends StatelessWidget {
       body: BlocProvider(
         create: (_) =>
             ProductBloc(/*httpClient: http.Client()*/)..add(ProductFetched()),
-        child: const ProductsList(),
+        child: ProductsList(),
       ),
     );
   }

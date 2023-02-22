@@ -47,19 +47,19 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         return emit(
           state.copyWith(
             status: ProductStatus.success,
-            products: products,
+            products: products.product,
             hasReachedMax: false,
           ),
         );
       }
       //final products = await _fetchProducts(state.products.length);
       final products = await repo.fetchProducts(state.products.length);
-      products.isEmpty
+      products.product!.isEmpty
           ? emit(state.copyWith(hasReachedMax: true))
           : emit(
               state.copyWith(
                 status: ProductStatus.success,
-                products: List.of(state.products)..addAll(products),
+                products: List.of(state.products)..addAll(products.product!),
                 hasReachedMax: false,
               ),
             );
