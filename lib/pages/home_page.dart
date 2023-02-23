@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/blocs/authentication/authentication.dart';
 import 'package:flutter_bloc_authentication/blocs/productList/product_bloc.dart';
-import 'package:flutter_bloc_authentication/config/locator.dart';
-import 'package:flutter_bloc_authentication/pages/product_list.dart';
-import 'package:flutter_bloc_authentication/pages/product_page.dart';
-import 'package:flutter_bloc_authentication/services/services.dart';
 import '../models/models.dart';
 
 class HomePage extends StatelessWidget {
@@ -44,19 +40,23 @@ class HomePage extends StatelessWidget {
                       return Text("cargando");
                     }
                     if (state.status == ProductStatus.success) {
-                      return Text("${state.products}");
+                      return Column(
+                        children: state.products.map((product) {
+                          return Column(
+                            children: [
+                              Text('Name: ${product.title}'),
+                              Text('Price: ${product.price}'),
+                              Image.network(
+                                  "http://localhost:8080/product/download/${product.image}"),
+                              Text('Platform: ${product.platform}'),
+                              SizedBox(height: 12),
+                            ],
+                          );
+                        }).toList(),
+                      );
                     }
                     return Text("no se han obtenido");
                   },
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    print("Check");
-                    JwtAuthenticationService service =
-                        getIt<JwtAuthenticationService>();
-                    await service.getCurrentUser();
-                  },
-                  child: Text('Check Token'),
                 ),
               ],
             ),

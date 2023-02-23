@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 class Page {
   List<Product>? product;
   bool? last;
@@ -20,7 +18,6 @@ class Page {
     if (json['content'] != null) {
       product = <Product>[];
       json['content'].forEach((v) {
-        //aqui va content???
         product!.add(new Product.fromJson(v));
       });
     }
@@ -46,29 +43,30 @@ class Page {
 }
 
 class Product {
-  int? id;
   String? title;
   String? description;
   double? price;
+  String? platform;
+  String? image;
 
-  Product({this.id, this.title, this.description, this.price});
+  Product(
+      {this.title, this.description, this.price, this.platform, this.image});
 
   Product.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     title = json['title'];
     description = json['description'];
     price = json['price'];
+    platform = json['platform'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['title'] = this.title;
     data['description'] = this.description;
     data['price'] = this.price;
+    data['platform'] = this.platform;
+    data['image'] = this.image;
     return data;
   }
-
-  @override
-  List<Object?> get props => [id, title, description, price];
 }
