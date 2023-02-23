@@ -16,6 +16,20 @@ class ApiConstants {
   static String baseUrl = "http://localhost:8080";
 }
 
+class LoggingInterceptor implements InterceptorContract {
+  @override
+  Future<RequestData> interceptRequest({required RequestData data}) async {
+    print(data.toString());
+    return data;
+  }
+
+  @override
+  Future<ResponseData> interceptResponse({required ResponseData data}) async {
+    print(data.toString());
+    return data;
+  }
+}
+
 class AuthorizationInterceptor implements InterceptorContract {
   late LocalStorageService _localStorageService;
 
@@ -73,8 +87,11 @@ class RestClient {
   InterceptedClient? _httpClient = null;
 
   RestClient() {
-    _httpClient = InterceptedClient.build(
-        interceptors: [HeadersApiInterceptor(), AuthorizationInterceptor()]);
+    _httpClient = InterceptedClient.build(interceptors: [
+      HeadersApiInterceptor(),
+      AuthorizationInterceptor(),
+      LoggingInterceptor()
+    ]);
   }
 
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {

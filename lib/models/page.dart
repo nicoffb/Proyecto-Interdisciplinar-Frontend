@@ -17,9 +17,9 @@ class Page {
       this.currentPage});
 
   Page.fromJson(Map<String, dynamic> json) {
-    if (json['product'] != null) {
+    if (json['content'] != null) {
       product = <Product>[];
-      json['product'].forEach((v) {
+      json['content'].forEach((v) {
         //aqui va content???
         product!.add(new Product.fromJson(v));
       });

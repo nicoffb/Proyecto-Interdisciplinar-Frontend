@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                     if (state.status == ProductStatus.success) {
                       return Text("${state.products}");
                     }
-                    return Text("pues nada");
+                    return Text("no se han obtenido");
                   },
                 ),
                 ElevatedButton(
