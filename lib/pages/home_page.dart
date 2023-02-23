@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                       return Text("cargando");
                     }
                     if (state.status == ProductStatus.success) {
-                      return Text("${state.products.length}");
+                      return Text("${state.products}");
                     }
                     return Text("pues nada");
                   },
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                         getIt<JwtAuthenticationService>();
                     await service.getCurrentUser();
                   },
-                  child: Text('Check'),
+                  child: Text('Check Token'),
                 ),
               ],
             ),
