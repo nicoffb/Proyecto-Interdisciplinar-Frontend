@@ -16,6 +16,8 @@ import 'package:flutter_bloc_authentication/services/authentication_service.dart
     as _i6;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:flutter_bloc_authentication/repositories/favorite_repository.dart'
+    as _i8;
 
 /// ignore_for_file: unnecessary_lambdas
 /// ignore_for_file: lines_longer_than_80_chars
@@ -35,6 +37,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i5.UserRepository>(_i5.UserRepository());
     gh.singleton<_i6.JwtAuthenticationService>(_i6.JwtAuthenticationService());
     gh.singleton<_i7.ProductRepository>(_i7.ProductRepository());
+    gh.singleton<_i8.FavoriteRepository>(_i8.FavoriteRepository());
     return this;
   }
 }

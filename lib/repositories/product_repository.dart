@@ -14,12 +14,19 @@ class ProductRepository {
   ProductRepository() {
     server = GetIt.I.get<RestClient>();
   }
+  Stream<List<Product>> fetchProductsStream() async* {
+    final response = await server.get("/product/search");
+    final page = Page.fromJson(json.decode(response));
+    yield page.product!;
+  }
+
   Future<Page> fetchProducts([int startIndex = 0]) async {
     final response = await server.get("/product/search");
 
     return Page.fromJson(json.decode(response));
   }
 }
+
 
 
 // @singleton

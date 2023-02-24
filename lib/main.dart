@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/config/locator.dart';
 import 'package:flutter_bloc_authentication/blocs/blocs.dart';
 import 'package:flutter_bloc_authentication/repositories/favorite_repository.dart';
+import 'package:flutter_bloc_authentication/repositories/product_repository.dart';
 import 'package:flutter_bloc_authentication/services/services.dart';
 import 'package:flutter_bloc_authentication/pages/pages.dart';
 
@@ -59,9 +60,9 @@ class MyApp extends StatelessWidget {
           if (state is AuthenticationAuthenticated) {
             // show home page
             return HomePage(
-              user: state.user,
-              favoriteRepository: FavoriteRepository(),
-            );
+                user: state.user,
+                productRepository: ProductRepository(),
+                favoriteRepository: FavoriteRepository());
           }
           // otherwise show login page
           return LoginPage();
