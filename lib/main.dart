@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/config/locator.dart';
 import 'package:flutter_bloc_authentication/blocs/blocs.dart';
+import 'package:flutter_bloc_authentication/repositories/favorite_repository.dart';
 import 'package:flutter_bloc_authentication/services/services.dart';
 import 'package:flutter_bloc_authentication/pages/pages.dart';
-
-
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -13,28 +12,22 @@ void main() {
   setupAsyncDependencies();
   configureDependencies();
   //await getIt.allReady();
-  
-    
-    runApp(BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          //GlobalContext.ctx = context;
-          final authService = getIt<JwtAuthenticationService>();
-          return AuthenticationBloc(authService)..add(AppLoaded());
-        },
-        child: MyApp(),
-      ));
 
+  runApp(BlocProvider<AuthenticationBloc>(
+    create: (context) {
+      //GlobalContext.ctx = context;
+      final authService = getIt<JwtAuthenticationService>();
+      return AuthenticationBloc(authService)..add(AppLoaded());
+    },
+    child: MyApp(),
+  ));
 }
 
 class GlobalContext {
-  
   static late BuildContext ctx;
-
 }
 
-
 class MyApp extends StatelessWidget {
-
   //static late  AuthenticationBloc _authBloc;
 
   static late MyApp _instance;
@@ -46,13 +39,6 @@ class MyApp extends StatelessWidget {
       authBloc..add(SessionExpiredEvent());
       return _instance;
     });
-    /*return MaterialPageRoute<void>(builder: (context) {
-      return BlocProvider<AuthenticationBloc>(create: (context) {
-        final authService = getIt<JwtAuthenticationService>();
-        return AuthenticationBloc(authService)..add(SessionExpiredEvent());
-      }, 
-      child: MyApp(),);
-    });*/
   }
 
   MyApp() {
@@ -74,6 +60,7 @@ class MyApp extends StatelessWidget {
             // show home page
             return HomePage(
               user: state.user,
+              favoriteRepository: FavoriteRepository(),
             );
           }
           // otherwise show login page
