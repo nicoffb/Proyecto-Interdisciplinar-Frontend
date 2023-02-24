@@ -4,6 +4,7 @@ import 'package:flutter_bloc_authentication/blocs/authentication/authentication.
 import 'package:flutter_bloc_authentication/blocs/favorite/bloc/favorite_bloc.dart';
 import 'package:flutter_bloc_authentication/blocs/productList/product_bloc.dart';
 import 'package:flutter_bloc_authentication/models/page.dart';
+import 'package:flutter_bloc_authentication/pages/pages.dart';
 import 'package:flutter_bloc_authentication/pages/product_list.dart';
 import 'package:flutter_bloc_authentication/repositories/favorite_repository.dart';
 import 'package:flutter_bloc_authentication/repositories/product_repository.dart';
@@ -11,6 +12,51 @@ import 'package:flutter_bloc_authentication/repositories/user_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import '../models/models.dart';
+
+class FavoritesPage extends StatelessWidget {
+  final FavoriteRepository favoriteRepository;
+
+  const FavoritesPage({Key? key, required this.favoriteRepository})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final favoritesStream = favoriteRepository.favoritesStream;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favorites'),
+      ),
+      body: StreamBuilder<List<String>>(
+        // final favoritesStream = favoriteRepository.favoritesStream.map((favoritesList) => favoritesList.cast<dynamic>());
+        //stream: favoritesStream,
+
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final favoriteProducts = snapshot.data!;
+            if (favoriteProducts.isEmpty) {
+              return Center(
+                child: Text('No favorite products yet!'),
+              );
+            }
+            final favoritesStream = favoriteRepository.favoritesStream;
+            return ProductList(
+              stream: favoritesStream,
+              isFavoriteList: true,
+            );
+            ;
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error loading favorites'),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+}
 
 class HomePage extends StatelessWidget {
   final User user;
@@ -34,12 +80,10 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () {
-              final favoritesStream = favoriteRepository.favoritesStream;
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => ProductList(
-                    stream: favoritesStream,
-                    isFavoriteList: true,
+                  builder: (_) => FavoritesPage(
+                    favoriteRepository: favoriteRepository,
                   ),
                 ),
               );

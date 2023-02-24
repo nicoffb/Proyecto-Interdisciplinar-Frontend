@@ -1,0 +1,20 @@
+1. poner plataforma como atributo
+	 y categoria como enum ( pasar de numero a string)
+la plataforma no se puede filtrar al intentar pasar un string a un valor enum
+
+
+2. Obtener todos los productos de un usuario/obtener todos los productos favoritos de un usuario
+
+
+3. que se mantenga el token de sesión (borrando el log out de alvaro)
+
+
+
+5. en autentication bloc
+
+6. validacion de solo poner los nombres de las plataformas
+
+6.Desactivo la seguridad y no me meterme
+
+
+

@@ -23,6 +23,7 @@ class AuthenticationBloc
     AppLoaded event,
     Emitter<AuthenticationState> emit,
   ) async {
+    await _authenticationService.signOut();
     //ESTO PERMITE MANTENERSE PERO SI SE MANTIENE LA APP ABIERTA DA FALLO
     emit(AuthenticationLoading());
     try {

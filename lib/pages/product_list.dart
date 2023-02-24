@@ -36,7 +36,8 @@ class ProductList extends StatelessWidget {
                 final product = products[index] as Product;
                 return ListTile(
                   title: Text(product.title!),
-                  subtitle: Text(product.platform!),
+                  subtitle: Text('Price: ${product.price}'),
+                  trailing: Text(product.platform!),
                   leading: Image.network(
                       "http://localhost:8080/product/download/${product.image}"),
                 );
